@@ -94,5 +94,30 @@ pack list@(x:_) = xs : pack rest where (xs, rest) = break (/=x) list
 -- (*) Run-length encoding of a list.
 -- Use the result of problem P09 to implement the so-called run-length
 -- encoding data compression method.
+
 encode :: Eq a => [a] -> [(Int, a)]
 encode = map (length &&& head) . pack
+
+
+
+-- Problem 11
+-- (*) Modified run-length encoding.
+-- Modify the result of problem 10 in such a way that if an element
+-- has no duplicates it is simply copied into the result list.
+-- Only elements with duplicates are transferred as (N E) lists.
+data Encoded a = Single a | Multiple Int a deriving (Show)
+
+encodeModified :: Eq a => [a] -> [Encoded a]
+encodeModified = map convert . encode
+            where convert (1, x) = Single x
+                  convert (n, x) = Multiple n x
+
+
+-- Problem 12
+-- (**) Decode a run-length encoded list.
+-- Given a run-length code list generated as specified in problem 11.
+-- Construct its uncompressed version.
+decodeModified :: [Encoded a] -> [a]
+decodeModified = (>>= decoded)
+            where decoded (Single x) = [x]
+                  decoded (Multiple n x) = replicate n x
