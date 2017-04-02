@@ -61,16 +61,21 @@ isPalindrome' list = list == reverse list
 
 
 
--- 7 Problem 7
+-- Problem 7
 -- (**) Flatten a nested list structure.
 --
 -- Transform a list, possibly holding lists as elements into a `flat' list
 -- by replacing each list with its elements (recursively).
+data NestedList a = Elem a | List [NestedList a]
+
+flatten :: NestedList a -> [a]
+flatten (Elem x) = [x]
+flatten (List []) = []
+flatten (List (x:xs)) = (flatten x) ++ (flatten (List xs))
 
 
 
-
--- 9 Problem 9
+-- Problem 9
 -- (**) Pack consecutive duplicates of list elements into sublists.
 -- If a list contains repeated elements they should be placed in separate sublists.
 
