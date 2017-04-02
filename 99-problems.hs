@@ -88,3 +88,11 @@ compress (x:xs) = x : compress (dropWhile (==x) xs)
 pack :: Eq a => [a] -> [[a]]
 pack [] = []
 pack list@(x:_) = xs : pack rest where (xs, rest) = break (/=x) list
+
+
+-- Problem 10
+-- (*) Run-length encoding of a list.
+-- Use the result of problem P09 to implement the so-called run-length
+-- encoding data compression method.
+encode :: Eq a => [a] -> [(Int, a)]
+encode = map (length &&& head) . pack
