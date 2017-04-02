@@ -74,6 +74,12 @@ flatten (List []) = []
 flatten (List (x:xs)) = (flatten x) ++ (flatten (List xs))
 
 
+-- 8 Problem 8
+-- (**) Eliminate consecutive duplicates of list elements.
+
+compress :: Eq a => [a] -> [a]
+compress [] = []
+compress (x:xs) = x : compress (dropWhile (==x) xs)
 
 -- Problem 9
 -- (**) Pack consecutive duplicates of list elements into sublists.
