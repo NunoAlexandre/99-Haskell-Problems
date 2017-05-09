@@ -138,3 +138,21 @@ encodeDirect list@(x:_) = encoded n : encodeDirect rest
             where (n, rest) = (length . fst &&& snd) . break (/=x) $ list
                   encoded 1 = Single x
                   encoded n = Multiple n x
+
+
+-- Problem 14
+-- (*) Duplicate the elements of a list.
+--
+dupli, dupli', dupli'', dupli''' :: [a] -> [a]
+dupli = ( >>= replicate 2)
+dupli' = concatMap (replicate 2)
+dupli'' = foldr (\x l -> x:x:l) []
+dupli''' [] = []
+dupli''' (x:xs) = x:x:dupli''' xs
+
+
+-- 5 Problem 15
+-- (**) Replicate the elements of a list a given number of times.
+repli, repli' :: [a] -> Int -> [a]
+repli xs n = (xs >>= replicate n)
+repli' xs n = concatMap (replicate n) xs
