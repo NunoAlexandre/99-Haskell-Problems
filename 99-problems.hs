@@ -172,3 +172,15 @@ split, split' :: [a] -> Int -> ([a], [a])
 split = flip splitAt
 split' xs i = (values *** values) . break ((==i) . fst) . zip [0..] $ xs
       where values = map snd
+
+
+-- Problem 18
+-- (**) Extract a slice from a list.
+--
+-- Given two indices, i and k, the slice is the list containing the elements
+-- between the i'th and k'th element of the original list (both limits included).
+-- Start counting the elements with 1.
+
+slice, slice' :: [a] -> Int -> Int -> [a]
+slice xs a z = drop (a-1) . take z $ xs
+slice' xs a z = snd . splitAt (a-1) . fst . splitAt z $ xs
