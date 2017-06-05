@@ -184,3 +184,12 @@ split' xs i = (values *** values) . break ((==i) . fst) . zip [0..] $ xs
 slice, slice' :: [a] -> Int -> Int -> [a]
 slice xs a z = drop (a-1) . take z $ xs
 slice' xs a z = snd . splitAt (a-1) . fst . splitAt z $ xs
+
+
+-- 9 Problem 19
+-- (**) Rotate a list N places to the left.
+
+rotate :: [a] -> Int -> [a]
+rotate xs givenI = uncurry (flip (++)) . splitAt finalI $ xs
+      where finalI = mod (givenI + xsLength) xsLength
+            xsLength = length xs
