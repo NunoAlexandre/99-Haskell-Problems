@@ -1,5 +1,5 @@
 import Control.Arrow
-import Data.List(break)
+import Data.List(break, partition)
 
 -- (*) Find the last element of a list.
 --v1
@@ -193,3 +193,11 @@ rotate :: [a] -> Int -> [a]
 rotate xs givenI = uncurry (flip (++)) . splitAt finalI $ xs
       where finalI = mod (givenI + xsLength) xsLength
             xsLength = length xs
+
+-- Problem 20
+-- (*) Remove the K'th element from a list.
+
+removeAt, removeAt' :: Int -> [a] -> (a, [a])
+removeAt n = ((!! (n-1)) &&& deleteNth n)
+        where deleteNth n = map snd . filter ((/=n) . fst) . zip [1..]
+removeAt' n = (fst . head . fst &&& map fst . snd) . partition ((==n) . snd) . flip zip [1..]
