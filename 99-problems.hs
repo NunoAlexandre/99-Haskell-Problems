@@ -163,3 +163,12 @@ repli' xs n = concatMap (replicate n) xs
 dropEvery :: [a] -> Int -> [a]
 dropEvery xs n = map fst . filter (not . (multipleOf n) . snd)  $ zip xs [1..]
                 where multipleOf a b = (==0) $ mod a b
+
+
+-- 7 Problem 17
+-- (*) Split a list into two parts; the length of the first part is given.
+
+split, split' :: [a] -> Int -> ([a], [a])
+split = flip splitAt
+split' xs i = (values *** values) . break ((==i) . fst) . zip [0..] $ xs
+      where values = map snd
